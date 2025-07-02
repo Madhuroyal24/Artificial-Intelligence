@@ -1,0 +1,32 @@
+from collections import deque
+def is_valid(state):
+    m_left, c_left, m_right, c_right = state
+    return (m_left == 0 or m_left >= c_left) and (m_right == 0 or m_right >= c_right)
+def get_next_states(state):
+    m_left, c_left, m_right, c_right = state
+    next_states = []
+    for m in range(0, 3):
+        for c in range(0, 3):
+            if 0 < m + c <= 2:  
+                new_state = (m_left - m, c_left - c, m_right + m, c_right + c)
+                if is_valid(new_state):
+                    next_states.append(new_state)
+    return next_states
+def bfs():
+    initial_state = (3, 3, 0, 0)  
+    queue = deque([initial_state])
+    visited = set()
+    while queue:
+        state = queue.popleft()
+        if state == (0, 0, 3, 3):  
+            return True
+        visited.add(state)
+        for next_state in get_next_states(state):
+            if next_state not in visited:
+                queue.append(next_state)
+    return False
+if __name__ == "__main__":
+    if bfs():
+        print("Solution found!")
+    else:
+        print("No solution exists.")
