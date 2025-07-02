@@ -1,0 +1,23 @@
+class VacuumCleaner:
+    def __init__(self, grid):
+        self.grid = grid
+        self.position = (0, 0)  
+        self.cleaned = 0
+    def clean(self):
+        rows, cols = len(self.grid), len(self.grid[0])
+        for r in range(rows):
+            for c in range(cols):
+                if self.grid[r][c] == 'D':  
+                    self.grid[r][c] = 'C'  
+                    self.cleaned += 1
+                    print(f"Cleaned position: ({r}, {c})")
+    def get_cleaned_count(self):
+        return self.cleaned
+grid = [
+    ['C', 'D', 'C'],
+    ['D', 'X', 'D'],  
+    ['C', 'C', 'C']
+]
+vacuum = VacuumCleaner(grid)
+vacuum.clean()
+print(f"Total cleaned spots: {vacuum.get_cleaned_count()}")
