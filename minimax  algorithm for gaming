@@ -1,0 +1,36 @@
+def minimax(board, depth, is_maximizing):
+    score = evaluate(board)
+
+    if score == 10:
+        return score - depth
+    if score == -10:
+        return score + depth
+    if is_full(board):
+        return 0
+
+    if is_maximizing:
+        best_score = float('-inf')
+        for move in available_moves(board):
+            board[move] = 'X'  # Assume 'X' is the maximizing player
+            best_score = max(best_score, minimax(board, depth + 1, False))
+            board[move] = ' '  # Undo move
+        return best_score
+    else:
+        best_score = float('inf')
+        for move in available_moves(board):
+            board[move] = 'O'  # Assume 'O' is the minimizing player
+            best_score = min(best_score, minimax(board, depth + 1, True))
+            board[move] = ' '  # Undo move
+        return best_score
+
+def evaluate(board):
+    # Implement evaluation logic for winning conditions
+    pass
+
+def is_full(board):
+    # Check if the board is full
+    pass
+
+def available_moves(board):
+    # Return a list of available moves
+    pass
